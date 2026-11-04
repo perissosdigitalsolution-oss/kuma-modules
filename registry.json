@@ -1,0 +1,25 @@
+{
+  "modules": [
+    {
+      "id": "kuma-module-calendar-ci",
+      "name": "Calendrier Officiel Éducation Nationale (Côte d'Ivoire)",
+      "version": "1.0.1",
+      "category": "academic",
+      "country": "CI",
+      "target": "primary",
+      "contract": "v1",
+      "repository": "https://github.com/perissosdigitalsolution-oss/kuma-modules",
+      "description": "Official Ivorian primary-school calendar with one-click bridge import into existing AcademicCalendarTab.",
+      "tags": ["calendar", "calendar-ci", "bridge", "academic", "holiday", "break", "exam"],
+      "capabilities": {
+        "hasBridgeMode": true,
+        "hasTodayWidget": true,
+        "standaloneSupported": true,
+        "supportsImport": true
+      },
+      "releaseDate": "2026-11-04",
+      "author": "perissosdigitalsolution",
+      "license": "MIT"
+    }
+  ]
+}
