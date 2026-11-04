@@ -1,11 +1,11 @@
 {
   "id": "kuma-module-calendar-ci",
   "name": "KUMA Module — Official School Calendar (Côte d'Ivoire)",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "apiVersion": "v1",
   "country": "CI",
   "countryLabel": "Côte d'Ivoire",
-  "description": "Official Ivorian primary-school calendar: terms (trimestres), school breaks, evaluations (CP1-CM1 and CM2/CEPE tracks) and public holidays. Self-contained: owns its own tables (mod_calendar_*), mounts as a Hono sub-app or deploys as a standalone Worker.",
+  "description": "Official Ivorian primary-school calendar (3 trimestres, 5 school breaks, 9 evaluations incl. CEPE, 14 fériés). **Bridge mode**: one-click import into the existing AcademicCalendarTab UI via POST /api/v1/calendar/import-official. Self-contained: owns its own tables (mod_calendar_*), mounts as a Hono sub-app or deploys as a standalone Worker.",
   "mountPath": "/api/v1/modules/calendar",
   "entry": {
     "server": "server/calendarModule.ts",
@@ -19,5 +19,17 @@
     "authContextVars": ["tenantId", "jwtPayload"]
   },
   "dataFiles": ["data/ci/2026-2027.json"],
-  "compatibility": "Host codebase evolves freely; the only contract is the versioned HTTP API and the D1 binding name. Breaking changes ship as /v2 alongside /v1."
+  "compatibility": "Host codebase evolves freely; the only contract is the versioned HTTP API and the D1 binding name. Breaking changes ship as /v2 alongside /v1.",
+  "integration": {
+    "frontend": {
+      "existingTab": "views/admin/tabs/AcademicCalendarTab.tsx",
+      "buttonLabel": { "en": "Import CI", "fr": "Importer CI" },
+      "serviceMethod": "CalendarService.importOfficialCI()"
+    },
+    "backend": {
+      "bridgeRoute": "/api/v1/calendar/import-official",
+      "tablesWritten": ["academic_calendar", "school_events"],
+      "tag": "module:calendar-ci"
+    }
+  }
 }
