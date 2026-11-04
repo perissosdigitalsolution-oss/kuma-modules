@@ -260,12 +260,26 @@ export function createCalendarModule() {
     });
 
     // ── GET /v1/health — unauthenticated capability probe ───────────────────
-    app.get('/v1/health', (c: ModContext) => c.json({
-        module: 'kuma-module-calendar-ci',
-        apiVersion: 'v1',
-        version: '1.0.0',
-        time: new Date().toISOString(),
-    }));
+    app.get('/v1/health', async (c: ModContext) => {
+        // Quick check: is there data for the current year?
+        const db = c.env.DB;
+        const yearRow = await db.prepare(`
+            SELECT label, start_date, end_date FROM mod_calendar_years 
+            WHERE country = 'Côte d''Ivoire' ORDER BY start_date DESC LIMIT 1
+        `).first<{ label: string; start_date: string; end_date: string }>();
+        
+        const status = yearRow ? 'ok' : 'ready';
+        const supportedYears = yearRow ? [yearRow.label] : [];
+        
+        return c.json({
+            module: 'kuma-module-calendar-ci',
+            version: '1.0.1',
+            status,
+            capabilities: ['bridge-import', 'today-status', 'upcoming-events'],
+            supportedYears,
+            time: new Date().toISOString(),
+        });
+    });
 
     return app;
 }
