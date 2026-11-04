@@ -1,0 +1,160 @@
+{
+    "annee_academique": "2026-2027",
+    "pays": "Côte d'Ivoire",
+    "trimestres": [
+        {
+            "nom": "1er Trimestre",
+            "debut": "2026-09-14",
+            "fin": "2026-12-04"
+        },
+        {
+            "nom": "2e Trimestre",
+            "debut": "2026-12-07",
+            "fin": "2027-03-12"
+        },
+        {
+            "nom": "3e Trimestre",
+            "debut": "2027-03-15",
+            "fin": "2027-06-11"
+        }
+    ],
+    "conges_scolaires": [
+        {
+            "nom": "Congés de Toussaint",
+            "debut": "2026-10-23",
+            "fin": "2026-11-01"
+        },
+        {
+            "nom": "Congés de Noël et Nouvel An",
+            "debut": "2026-12-18",
+            "fin": "2027-01-03"
+        },
+        {
+            "nom": "Congés de Février",
+            "debut": "2027-02-05",
+            "fin": "2027-02-14"
+        },
+        {
+            "nom": "Congés de Pâques",
+            "debut": "2027-03-19",
+            "fin": "2027-04-04"
+        },
+        {
+            "nom": "Grandes Vacances",
+            "debut": "2027-07-30",
+            "fin": "2027-09-12"
+        }
+    ],
+    "evaluations_primaire_cp1_cm1": [
+        {
+            "nom": "1re Composition",
+            "date": "2026-12-10"
+        },
+        {
+            "nom": "2e Composition",
+            "date": "2027-02-04"
+        },
+        {
+            "nom": "3e Composition",
+            "date": "2027-04-06"
+        },
+        {
+            "nom": "Composition de passage",
+            "date": "2027-06-03"
+        }
+    ],
+    "evaluations_primaire_cm2": [
+        {
+            "nom": "1re Composition",
+            "date": "2026-12-10"
+        },
+        {
+            "nom": "2e Composition",
+            "date": "2027-02-04"
+        },
+        {
+            "nom": "1er Examen Blanc",
+            "date": "2027-04-08"
+        },
+        {
+            "nom": "2e Examen Blanc",
+            "date": "2027-05-20"
+        },
+        {
+            "nom": "Épreuves Écrites CEPE (National)",
+            "date": "2027-06-07"
+        }
+    ],
+    "jours_feries_2027": [
+        {
+            "nom": "Jour de l'An",
+            "date": "2027-01-01",
+            "type": "Fixe"
+        },
+        {
+            "nom": "Lendemain de la Nuit du Destin",
+            "date": "2027-03-06",
+            "type": "Variable (Religieux)"
+        },
+        {
+            "nom": "Aïd el-Fitr (Korité)",
+            "date": "2027-03-09",
+            "type": "Variable (Religieux)"
+        },
+        {
+            "nom": "Lundi de Pâques",
+            "date": "2027-03-29",
+            "type": "Variable (Religieux)"
+        },
+        {
+            "nom": "Fête du Travail",
+            "date": "2027-05-01",
+            "type": "Fixe"
+        },
+        {
+            "nom": "Ascension",
+            "date": "2027-05-06",
+            "type": "Variable (Religieux)"
+        },
+        {
+            "nom": "Aïd el-Kébir (Tabaski)",
+            "date": "2027-05-16",
+            "type": "Variable (Religieux)"
+        },
+        {
+            "nom": "Lundi de Pentecôte",
+            "date": "2027-05-17",
+            "type": "Variable (Religieux)"
+        },
+        {
+            "nom": "Fête Nationale",
+            "date": "2027-08-07",
+            "type": "Fixe"
+        },
+        {
+            "nom": "Assomption",
+            "date": "2027-08-15",
+            "type": "Fixe"
+        },
+        {
+            "nom": "Lendemain du Maouloud",
+            "date": "2027-08-15",
+            "type": "Variable (Religieux)"
+        },
+        {
+            "nom": "Toussaint",
+            "date": "2027-11-01",
+            "type": "Fixe"
+        },
+        {
+            "nom": "Journée Nationale de la Paix",
+            "date": "2027-11-15",
+            "type": "Fixe"
+        },
+        {
+            "nom": "Noël",
+            "date": "2027-12-25",
+            "type": "Fixe"
+        }
+    ]
+}

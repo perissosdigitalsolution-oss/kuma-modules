@@ -1,0 +1,12 @@
+name = "kuma-module-calendar"
+main = "index.ts"
+compatibility_date = "2026-09-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kuma-calendar-module"        # ← change to YOUR D1 database
+database_id = "REPLACE_WITH_YOUR_D1_ID"       # ← change to YOUR D1 id
+
+[vars]
+# JWT_SECRET is provided via `npx wrangler secret put JWT_SECRET`
+# Use the SAME secret as the host platform so host-issued tokens work.
