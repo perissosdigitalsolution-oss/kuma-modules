@@ -64,3 +64,25 @@ CREATE TABLE IF NOT EXISTS mod_calendar_holidays (
 );
 CREATE INDEX IF NOT EXISTS idx_mod_calendar_holidays_year ON mod_calendar_holidays(year_id);
 CREATE INDEX IF NOT EXISTS idx_mod_calendar_holidays_school_date ON mod_calendar_holidays(school_id, date);
+
+-- ============================================================================
+-- Unified calendar_events_view for date validation (no indexes allowed on view in D1)
+-- UNION of all event types. Query: school_id, start_date, end_date, is_blocking.
+-- ============================================================================
+DROP VIEW IF EXISTS mod_calendar_events_view;
+CREATE VIEW mod_calendar_events_view AS
+SELECT 'term' as source, t.id || '-term' as id, t.school_id, t.year_id as academic_year_id,
+       'term' as category, t.label as title, t.start_date, t.end_date, CAST(0 as BOOLEAN) as is_blocking
+FROM mod_calendar_terms t
+UNION ALL
+SELECT 'break' as source, b.id || '-brk' as id, b.school_id, b.year_id,
+       'break' as category, b.label, b.start_date, b.end_date, CAST(1 as BOOLEAN)
+FROM mod_calendar_breaks b
+UNION ALL
+SELECT 'evaluation' as source, e.id || '-eval' as id, e.school_id, e.year_id,
+       'evaluation' as category, e.label, e.date, e.date, CAST(0 as BOOLEAN)
+FROM mod_calendar_evaluations e
+UNION ALL
+SELECT 'holiday' as source, h.id || '-hol' as id, h.school_id, h.year_id,
+       'holiday' as category, h.label, h.date, h.date, CAST(1 as BOOLEAN)
+FROM mod_calendar_holidays h;
