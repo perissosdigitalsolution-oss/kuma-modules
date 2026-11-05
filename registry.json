@@ -1,0 +1,33 @@
+{
+  "modules": [
+    {
+      "id": "kuma-module-calendar-ci",
+      "name": "Official School Calendar (Côte d'Ivoire)",
+      "version": "1.0.1",
+      "category": "academic",
+      "country": "CI",
+      "target": "primary",
+      "contract": "v1",
+      "repository": "https://github.com/perissosdigitalsolution-oss/kuma-modules",
+      "description": "Official Ivorian primary-school calendar (3 trimestres, 5 school breaks, 9 evaluations incl. CEPE, 14 fériés). **Bridge mode**: one-click import into the existing AcademicCalendarTab UI via POST /api/v1/calendar/import-official. Self-contained: owns its own tables (mod_calendar_*), mounts as a Hono sub-app or deploys as a standalone Worker.",
+      "tags": [
+        "calendar",
+        "calendar-ci",
+        "bridge",
+        "academic",
+        "holiday",
+        "break",
+        "exam"
+      ],
+      "capabilities": {
+        "hasBridgeMode": true,
+        "hasTodayWidget": true,
+        "standaloneSupported": true,
+        "supportsImport": true
+      },
+      "releaseDate": "2026-11-04",
+      "author": "perissosdigitalsolution-oss",
+      "license": "MIT"
+    }
+  ]
+}

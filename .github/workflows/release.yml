@@ -1,0 +1,43 @@
+name: Build & Release Calendar Module
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        working-directory: modules/calendar-ci
+        run: npm ci --legacy-peer-deps
+
+      - name: Generate Distribution ZIP
+        working-directory: modules/calendar-ci
+        run: node scripts/install.mjs --zip
+
+      - name: List Generated Files
+        working-directory: modules/calendar-ci
+        run: ls -la *.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: modules/calendar-ci/*.zip
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -12,7 +12,7 @@
 //
 // Only external dependency: hono (peer dependency of the module).
 // ============================================================================
-import { Hono } from 'hono';
+import { Hono, type Context } from 'hono';
 import { parseCalendarFile, dayStatus, upcoming, toIsoDate, type ParsedCalendar, type RawCalendarFile } from './logic';
 
 /** Roles allowed to import/replace a calendar (school leadership). */
@@ -22,7 +22,7 @@ const CALENDAR_ADMIN_ROLES = new Set([
 ]);
 
 /** Minimal D1 surface used by the module (works with Cloudflare D1). */
-interface ModuleDB {
+export interface ModuleDB {
     prepare(sql: string): {
         bind(...vals: unknown[]): {
             first<T = Record<string, unknown>>(): Promise<T | null>;
@@ -35,16 +35,19 @@ interface ModuleDB {
     batch(stmts: unknown[]): Promise<unknown>;
 }
 
-interface ModuleEnv { DB: ModuleDB; [k: string]: unknown }
-type ModContext = { env: ModuleEnv } & Record<string, unknown>;
-
 interface ModPayload { sub?: string; role?: string; schoolId?: string; tenantId?: string; email?: string }
 
+/** Hono generic env: Bindings (D1) + Variables (auth context set by host/standalone middleware). */
+export type ModEnv = {
+    Bindings: { DB: ModuleDB; [k: string]: unknown };
+    Variables: { tenantId: string; jwtPayload: ModPayload | null };
+};
+
+type ModContext = Context<ModEnv>;
+
 function resolveContext(c: ModContext): { tenantId: string; role: string; userId: string } {
-    const payload = ((c.get as (k: string) => unknown)?.('jwtPayload') || {}) as ModPayload;
-    const tenantId = String(
-        (c.get as (k: string) => unknown)?.('tenantId') || payload.schoolId || payload.tenantId || 'default'
-    );
+    const payload = (c.get('jwtPayload') || {}) as ModPayload;
+    const tenantId = String(c.get('tenantId') || payload.schoolId || payload.tenantId || 'default');
     return { tenantId, role: String(payload.role || '').toLowerCase(), userId: String(payload.sub || '') };
 }
 
@@ -89,7 +92,7 @@ async function loadLatestCalendar(db: ModuleDB, tenantId: string): Promise<Parse
 }
 
 export function createCalendarModule() {
-    const app = new Hono();
+    const app = new Hono<ModEnv>();
 
     // ── GET /v1/years ────────────────────────────────────────────────────────
     app.get('/v1/years', async (c: ModContext) => {
